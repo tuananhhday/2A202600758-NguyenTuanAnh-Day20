@@ -73,5 +73,12 @@ Benchmark tối thiểu:
 
 Mỗi nhóm trả lời 2 câu:
 
-1. Case nào nên dùng multi-agent? Vì sao?
-2. Case nào không nên dùng multi-agent? Vì sao?
+1. **Case nào nên dùng multi-agent? Vì sao?**
+   - **Trả lời**: Nên dùng cho các tác vụ phức tạp, cần thu thập thông tin từ nhiều nguồn, phân tích dữ liệu chuyên sâu qua nhiều góc nhìn và kiểm duyệt chéo nội dung (ví dụ: làm báo cáo nghiên cứu học thuật, viết phân tích thị trường, phân tích rủi ro tài chính).
+   - **Vì sao**: Nhờ cơ chế tách biệt vai trò (Separation of Concerns), từng Agent có thể tập trung vào một nhiệm vụ nhỏ (Researcher gom nguồn, Analyst đánh giá rủi ro, Writer viết báo cáo, Critic phản biện lỗi sai). Điều này giúp tối ưu hóa Prompts cho từng tác nhân, giảm thiểu tối đa hiện tượng ảo giác (hallucination) của LLM khi phải xử lý quá nhiều bối cảnh cùng lúc, và cho phép thiết lập vòng phản hồi kiểm soát chất lượng (Refinement loops).
+
+2. **Case nào không nên dùng multi-agent? Vì sao?**
+   - **Trả lời**: Không nên dùng cho các tác vụ đơn giản, mang tính chất một chiều (single-turn) và yêu cầu phản hồi tức thì với độ trễ thấp (ví dụ: chatbot giải đáp nhanh, sửa lỗi chính tả/ngữ pháp cơ bản, tóm tắt bài viết ngắn).
+   - **Vì sao**: Hệ thống đa tác nhân tốn chi phí điều phối (orchestration overhead) lớn và phải thực hiện nhiều cuộc gọi API LLM liên tiếp. Điều này làm tăng độ trễ thời gian thực thi (Latency tăng từ ~12s lên ~47s như kết quả benchmark thực tế) và làm tăng chi phí sử dụng token lên gấp nhiều lần. Đối với các tác vụ đơn giản, một tác nhân đơn lẻ (Single-Agent Baseline) có thể xử lý cực kỳ nhanh chóng và tiết kiệm chi phí tối đa.
+
+
